@@ -8,6 +8,8 @@
 // alert( random(1, 5) ); // 4.3435234525
 //----------------------------------------------------------//
 
+"use strict";
+
 function random(min, max) {
   return (Math.random() * (max - min) + min)
 }

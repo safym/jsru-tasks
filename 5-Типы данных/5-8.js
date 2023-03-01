@@ -3,6 +3,8 @@
 // ucFirst("вася") == "Вася";
 //----------------------------------------------------------//
 
+"use strict";
+
 function ucFirst(str) {
   let result = str.charAt(0).toUpperCase() + str.slice(1);
 

@@ -5,6 +5,8 @@
 // alert( `hello ${name}` ); // ?
 //----------------------------------------------------------//
 
+"use strict";
+
 //ответы: 
 alert( `hello ${1}` );        // hello 1
 alert( `hello ${"name"}` );   // hello "name"

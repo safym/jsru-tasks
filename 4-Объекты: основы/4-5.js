@@ -23,6 +23,8 @@
 // P.S. Используйте typeof для проверки, что значение свойства числовое.
 //----------------------------------------------------------//
 
+"use strict";
+
 function multiplyNumeric(obj) {
   for (let key in obj) {
     if (typeof obj[key] === 'number') {

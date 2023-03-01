@@ -8,6 +8,8 @@
 //----------------------------------------------------------//
 
 
+"use strict";
+
 function camelize(str) {
   const strArray = str.split('-');
   return strArray.map((word, i) => {

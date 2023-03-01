@@ -17,6 +17,8 @@
 // alert(accumulator.value); // выведет сумму этих значений
 //----------------------------------------------------------//
 
+"use strict";
+
 function Accumulator(startingValue) {
   this.value = startingValue;
 

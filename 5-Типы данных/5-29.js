@@ -11,6 +11,8 @@
 // Из каждой группы анаграмм должно остаться только одно слово, не важно какое.
 //----------------------------------------------------------//
 
+"use strict";
+
 let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 
 console.log(aclean(arr)); // "nap,teachers,ear" или "PAN,cheaters,era"

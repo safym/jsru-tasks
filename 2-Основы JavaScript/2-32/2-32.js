@@ -14,6 +14,8 @@
 //   if (value === null) break;
 // }
 
+"use strict";
+
 while (true) {
   let value = +prompt('Введите число больше 100 или нажмите "Отмена"', 0);
 

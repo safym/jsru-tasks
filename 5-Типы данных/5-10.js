@@ -7,6 +7,8 @@
 // truncate("Всем привет!", 20) = "Всем привет!"
 //----------------------------------------------------------//
 
+"use strict";
+
 function truncate(str, maxlength) {
   return (str.length <= maxlength) 
   ? str

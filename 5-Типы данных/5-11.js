@@ -2,6 +2,8 @@
 // Создайте функцию extractCurrencyValue(str), которая будет из такой строки выделять числовое значение и возвращать его.
 //----------------------------------------------------------//
 
+"use strict";
+
 console.log( extractCurrencyValue('$120')  === 120 ); // true
 
 function extractCurrencyValue(str) {
