@@ -23,5 +23,30 @@
 //
 // };
 //
-// askPassword(user.loginOk, user.loginFail);
+// askPassword(user.loginOk, user.loginFail); (*)
 //----------------------------------------------------------//
+
+"use strict"
+
+function askPassword(ok, fail) {
+  let password = prompt("Password?", '');
+  if (password == "rockstar") ok();
+  else fail();
+}
+
+let user = {
+  name: 'Вася',
+
+  loginOk() {
+    alert(`${this.name} logged in`);
+  },
+
+  loginFail() {
+    alert(`${this.name} failed to log in`);
+  },
+
+};
+
+// в функции askPassword методы loginOK() и loginFail() теряют контекст this,
+// поэтому привязываем его с помощью bind
+askPassword(user.loginOk.bind(user), user.loginFail.bind(user));

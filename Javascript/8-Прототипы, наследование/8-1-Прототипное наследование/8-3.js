@@ -13,3 +13,19 @@
 //
 // rabbit.eat();
 //----------------------------------------------------------//
+
+"use strict"
+
+let animal = {
+  eat() {
+    this.full = true;
+  }
+};
+
+let rabbit = {
+  __proto__: animal
+};
+
+
+// после вызова full будет у rabbit, так как eat() выполняется в контексте rabbit (перед точкой)
+rabbit.eat();

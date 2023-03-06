@@ -9,3 +9,15 @@
 // Приведите пример функции-конструктора для объекта obj, с которой такой вызов корректно сработает. 
 // И пример функции-конструктора, с которой такой код поведёт себя неправильно.
 //----------------------------------------------------------//
+
+"use strict"
+
+function func(name) {
+  this.prop = `prop ${name}`;
+}
+
+let obj1 = new func('obj1')
+let obj2 = new obj1.constructor('obj2');
+
+console.log(obj1.prop) // prop obj1
+console.log(obj2.prop) // prop obj2

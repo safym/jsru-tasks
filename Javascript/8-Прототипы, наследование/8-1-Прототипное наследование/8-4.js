@@ -25,3 +25,29 @@
 // // У этого хомяка тоже есть еда. Почему? Исправьте
 // alert( lazy.stomach ); // apple
 //----------------------------------------------------------//
+
+"use strict"
+
+let hamster = {
+  eat(food) {
+    this.stomach.push(food);
+  }
+};
+
+let speedy = {
+  stomach: [],
+  __proto__: hamster
+};
+
+let lazy = {
+  stomach: [],
+  __proto__: hamster
+};
+
+
+speedy.eat("apple");
+
+// при вызове eat еда пушилась в найденный stomach (и он был у объекта hamster)
+// например, елси добавить каждому хомяку свой живот, то метод eat будет работать корректно
+console.log(speedy.stomach); 
+console.log(lazy.stomach); 
