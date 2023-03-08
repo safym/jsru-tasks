@@ -1,0 +1,60 @@
+<!-- Напишите код для сортировки по столбцу "name". -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th><th>Surname</th><th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td><td>Smith</td><td>10</td>
+      </tr>
+      <tr>
+        <td>Pete</td><td>Brown</td><td>15</td>
+      </tr>
+      <tr>
+        <td>Ann</td><td>Lee</td><td>5</td>
+      </tr>
+      <tr>
+        <td>...</td><td>...</td><td>...</td>
+      </tr>
+    </tbody>
+    </table>
+  
+  <script>
+    const table = document.querySelector('table')
+
+    sortByName(table)
+
+    function sortByName(tableElem) {
+      const nameIndex = 0;
+      
+      let tbody = tableElem.querySelector('tbody');
+      const rows = Array.from(tbody.children);
+
+      const sortedRows = rows.sort((a, b) => (
+        a.children[nameIndex].innerText > b.children[nameIndex].innerText 
+        ? 1 
+        : -1))
+
+      tbody.append(...sortedRows)
+    }
+  </script>
+
+</body>
+
+</html>

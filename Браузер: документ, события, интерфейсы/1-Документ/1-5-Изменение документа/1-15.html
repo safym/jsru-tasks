@@ -1,0 +1,76 @@
+<!-- Напишите функцию createTree, которая создаёт вложенный список ul/li из объекта. 
+    Выберите один из двух способов решения этой задачи:
+
+    Создать строку, а затем присвоить через container.innerHTML.
+    Создавать узлы через методы DOM.
+
+Если получится – сделайте оба.
+
+P.S. Желательно, чтобы в дереве не было лишних элементов, в частности -– пустых <ul></ul> на нижнем уровне. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="tree"></div>
+  <script>
+    let data = {
+      "Рыбы": {
+        "форель": {},
+        "лосось": {}
+      },
+
+      "Деревья": {
+        "Огромные": {
+          "секвойя": {},
+          "дуб": {}
+        },
+        "Цветковые": {
+          "яблоня": {},
+          "магнолия": {}
+        }
+      }
+    };
+
+    createTree(document.getElementById('tree'), data); // создаёт дерево в контейнере
+
+    function createTree(elem, dataTree) {
+      const listWrapper = document.createElement('ul')
+
+      createList(dataTree, listWrapper)
+
+      elem.append(listWrapper)
+
+      function createList(subTree, listWrapper) {
+        for (let [name, value] of Object.entries(subTree)) {
+
+          if (typeof value === 'object') {
+            const listItem = document.createElement('li');
+            listItem.innerText = name;
+
+            if (Object.keys(value).length) {
+              const childrenItems = document.createElement('ul');
+              listItem.append(childrenItems)
+
+              createList(value, childrenItems)
+            } 
+            listWrapper.append(listItem)
+
+          } else {
+            break
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

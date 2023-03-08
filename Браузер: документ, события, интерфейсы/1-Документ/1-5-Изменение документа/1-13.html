@@ -1,0 +1,32 @@
+<!-- В примере ниже вызов table.remove() удаляет таблицу из документа.
+Но если вы запустите его, вы увидите, что текст "aaa" все еще виден.  
+Почему так происходит? -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table id="table">
+    aaa
+    <tr>
+      <td>Тест</td>
+    </tr>
+  </table>
+  
+  <script>
+    alert(table); // таблица, как и должно быть
+    
+    // внутри тега table допускаются только табличные теги tr, td
+    // текстовый узел интерпритируется так, будто он за пределеами тега table
+    // поэтому он и остается после удаления элемента
+    table.remove();
+   
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!-- Создайте цветные часы
+Для стилизации используйте HTML/CSS, JavaScript должен только обновлять время в элементах. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .hours {
+      color: red;
+    }
+
+    .minutes {
+      color: green;
+    }
+
+    .seconds {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- клик по этой кнопке вызовет clockStart() -->
+  <input type="button" onclick="clockStart()" value="Старт">
+  <!-- клик по этой кнопке вызовет clockStop() -->
+  <input type="button" onclick="clockStop()" value="Стоп">
+
+  <script>
+    createClock(document.body)
+
+    let intervalD;
+
+    function clockStart() {
+      if (!intervalD) {
+        const clockElement = document.querySelector('.clock');
+        clockElement.innerHTML = formatDate(new Date());
+
+        intervalD = setInterval(() => {
+          clockElement.innerHTML = formatDate(new Date())
+        }, 1000);
+      }
+    }
+
+    function clockStop() {
+      clearInterval(intervalD);
+      intervalD = null;
+    }
+
+    function createClock(parentElement) {
+      const clockElement = document.createElement('div')
+      clockElement.classList.add('clock');
+      clockElement.innerHTML = formatDate()
+      parentElement.prepend(clockElement)
+    }
+
+    function formatDate(date) {
+      let hrs, min, sec;
+      if (date) {
+        hrs = (date.getHours() < 10) ? "0" + date.getHours() : date.getHours()
+        min = (date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes()
+        sec =(date.getSeconds() < 10) ? "0" + date.getSeconds() : date.getSeconds()
+      } else {
+        hrs = 'hh'
+        min = 'mm'
+        sec = 'ss'
+      }
+
+      return `<span class=hours>${hrs}</span>:<span class=minutes>${min}</span>:<span class=seconds>${sec}</span>`
+    }
+  </script>
+
+</body>
+
+</html>

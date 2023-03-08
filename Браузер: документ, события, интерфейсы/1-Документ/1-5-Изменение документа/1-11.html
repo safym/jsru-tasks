@@ -1,0 +1,38 @@
+<!-- У нас есть пустой DOM-элемент elem и строка text.
+
+Какие из этих 3-х команд работают одинаково?
+
+    elem.append(document.createTextNode(text))
+    elem.innerHTML = text
+    elem.textContent = text -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  1.
+  <div id="elem1"></div>
+  2.
+  <div id="elem2"></div>
+  3.
+  <div id="elem3"></div>
+  <script>
+    let text = 'text';
+
+    // все варианты работают одинаково 
+
+    // вставить в конце дочерних текстовый узел 
+    elem1.append(document.createTextNode(text))
+    // оба варианта ниже = вставить внутрь элемета контент 
+    // (текст одинаково вставляется как html и как текст, конечно)
+    elem2.innerHTML = text;
+    elem3.textContent = text
+  </script>
+</body>
+</html>
