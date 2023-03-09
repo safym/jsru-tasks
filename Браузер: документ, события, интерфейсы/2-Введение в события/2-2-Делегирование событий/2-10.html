@@ -1,4 +1,8 @@
-<!-- Cоздать меню, которое по нажатию открывается либо закрывается -->
+<!-- Сделать таблицу сортируемой: при клике на элемент <th> строки таблицы должны сортироваться по соответствующему столбцу.
+Каждый элемент <th> имеет атрибут data-type.
+В примере выше первый столбец содержит числа, а второй – строки. Функция сортировки должна это учитывать, 
+ведь числа сортируются иначе, чем строки.
+Сортировка должна поддерживать только типы "string" и "number". -->
 <!-- --------------------------------------------------------------------------------------------- -->
 <!DOCTYPE html>
 <html lang="en">
@@ -6,14 +10,85 @@
 <head>
   <meta charset="utf-8">
   <style>
+    table {
+      border-collapse: collapse;
+    }
 
+    th,
+    td {
+      border: 1px solid black;
+      padding: 4px;
+    }
+
+    th {
+      cursor: pointer;
+    }
+
+    th:hover {
+      background: yellow;
+    }
   </style>
 </head>
 
 <body>
 
- 
+  <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number" data-order="asc">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>Вася</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Петя</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>Аня</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Люся</td>
+      </tr>
+    </tbody>
+  </table>
+
   <script>
-  
+    const tableHeader = document.querySelector('#grid').querySelector('thead');
+
+    tableHeader.addEventListener('click', sortOnClick)
+
+    function sortOnClick(event) {
+      const bodyElement = event.target.closest('table').querySelector('tbody');
+      const tableData = Array.from(bodyElement.children)
+
+      const currentOrder = event.target.dataset.order;
+      const typeData = event.target.dataset.type
+
+      const sortedData = tableData.sort((a, b) => {
+        const columnIndex = event.target.cellIndex;
+        const direction = (currentOrder === 'asc') ? 1 : -1;
+
+        const first = a.children[columnIndex].innerText;
+        const second = b.children[columnIndex].innerText;
+
+        switch (typeData) {
+          case 'number':
+            return direction * (first - second)
+          case 'string':
+            return direction * first.localeCompare(second, ["ru", "en-US"])
+        }
+      })
+
+      bodyElement.append(...sortedData)
+
+      event.target.dataset.order = (currentOrder === 'asc') ? 'desc' : 'asc'
+    }
   </script>
 </body>

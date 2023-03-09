@@ -1,4 +1,25 @@
-<!-- Cоздать меню, которое по нажатию открывается либо закрывается -->
+<!-- При наведении мыши на элемент с атрибутом data-tooltip, 
+  над ним должна показываться подсказка и скрываться при переходе на другой элемент.
+  В этой задаче мы полагаем, что во всех элементах с атрибутом data-tooltip – только текст. То есть, в них нет вложенных тегов (пока).
+
+Детали оформления:
+
+    Отступ от подсказки до элемента с data-tooltip должен быть 5px по высоте.
+    Подсказка должна быть, по возможности, посередине элемента.
+    Подсказка не должна вылезать за границы экрана, в том числе если страница частично прокручена, если нельзя показать сверху – показывать снизу элемента.
+    Текст подсказки брать из значения атрибута data-tooltip. Это может быть произвольный HTML.
+
+Для решения вам понадобятся два события:
+
+    mouseover срабатывает, когда указатель мыши заходит на элемент.
+    mouseout срабатывает, когда указатель мыши уходит с элемента.
+
+Примените делегирование событий: установите оба обработчика на элемент document, чтобы отслеживать «заход» и «уход» курсора на элементы с атрибутом data-tooltip и управлять подсказками с их же помощью.
+
+После реализации поведения – люди, даже не знакомые с JavaScript смогут добавлять подсказки к элементам.
+
+P.S. В один момент может быть показана только одна подсказка.
+ -->
 <!-- --------------------------------------------------------------------------------------------- -->
 <!DOCTYPE html>
 <html lang="en">
@@ -6,14 +27,77 @@
 <head>
   <meta charset="utf-8">
   <style>
+    body {
+      height: 2000px;
+      /* добавим body прокрутку, подсказка должна работать и с прокруткой */
+    }
 
+    .tooltip {
+      /* немного стилизуем подсказку, можете использовать свои стили вместо этих */
+      position: fixed;
+      padding: 10px 20px;
+      border: 1px solid #b3c9ce;
+      border-radius: 4px;
+      text-align: center;
+      font: italic 14px/1.3 sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    }
   </style>
 </head>
 
 <body>
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
 
- 
+  <button data-tooltip="эта подсказка должна быть длиннее, чем элемент">Короткая кнопка</button>
+  <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+
+  <p>Прокрутите страницу, чтобы кнопки оказались у верхнего края, а затем проверьте правильно ли выводятся подсказки.
+  </p>
+
+
   <script>
-  
+    let tooltip;
+
+    document.addEventListener('pointerover', onPoinerOver);
+    document.addEventListener('pointerout', onPoinerOut);
+
+    function onPoinerOver(event) {
+      const button = event.target;
+      const tooltipValue = event.target.dataset.tooltip
+
+      if (tooltipValue) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = `<div class="tooltip">${tooltipValue}</div>`
+        tooltip = wrapper.firstElementChild;
+
+        document.body.append(tooltip)
+       
+        let coords = button.getBoundingClientRect();
+
+        let left = coords.left + (button.offsetWidth - tooltip.offsetWidth) / 2;
+        if (left < 0) left = 0; 
+
+        const offset = 5;
+
+        let top = coords.top - tooltip.offsetHeight - offset;
+        if (top < 0) top = coords.top + button.offsetHeight + offset;
+
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+      }
+    }
+
+    function onPoinerOut(event) {
+      const tooltipValue = event.target.dataset.tooltip
+
+      if (tooltipValue) {
+        tooltip.remove()
+        tooltip = null;
+      }
+    }
   </script>
+
 </body>

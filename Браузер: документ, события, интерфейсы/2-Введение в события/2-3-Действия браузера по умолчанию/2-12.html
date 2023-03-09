@@ -1,0 +1,31 @@
+<!-- Почему в коде ниже return false не работает? -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  </style>
+</head>
+
+<body>
+  <!-- задание -->
+  <h1>Почему в коде ниже return false не работает?</h1>
+  <!-- ответ -->
+  <p>
+    чтобы отменить переход по ссылке можно добавить event.preventDefault();
+  </p>
+
+  <a href="https://w3.org" onclick="handler()">браузер откроет w3.org</a>
+  <br>
+  <a href="https://w3.org" onclick="return handler()">браузер НЕ откроет w3.org</a>
+
+  <script>
+    function handler() {
+      alert( "..." );
+      event.preventDefault();
+    }
+  </script>
+
+</body>
