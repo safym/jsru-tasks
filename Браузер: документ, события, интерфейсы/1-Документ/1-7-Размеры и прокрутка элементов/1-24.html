@@ -1,0 +1,49 @@
+<!-- Поместите мяч в центр поля
+Каковы координаты центра поля?
+Вычислите их и используйте, чтобы поместить мяч в центр поля
+
+    Элемент должен позиционироваться за счёт JavaScript, а не CSS.
+    Код должен работать с любым размером мяча (10, 20, 30 пикселей) 
+    и любым размером поля без привязки к исходным значениям.-->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #field {
+      width: 200px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+    }
+
+    #ball {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+  <script>
+    ball.style.top = (field.clientHeight / 2) - (ball.offsetHeight / 2) + 'px'
+    ball.style.left = (field.clientWidth / 2) - (ball.offsetWidth / 2) + 'px'
+  </script>
+</body>
+
+</html>

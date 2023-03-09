@@ -1,0 +1,46 @@
+<!-- В чём отличие между getComputedStyle(elem).width и elem.clientWidth?
+Укажите хотя бы 3 отличия, лучше – больше. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .example {
+      padding: 10px;
+      border: beige solid 5px;
+    }
+    #example1 {
+      color: brown;
+    }
+    #example2 {
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <!-- отличия  -->
+  <!-- 1. -->
+  <p class="example">1. <span id="example1">getComputedStyle</span> может вернуть ширину строчного элемента "auto", clientWidth вернет итоговое значение ширина на клиенте</p>
+  <button onclick="alert(getComputedStyle(example1).width)">show getComputedStyle.width</button>
+  <button onclick="alert(example1.clientWidth)">show clientWidth</button>
+  <!-- 2 -->
+  <p class="example" id="example2"> 2. getComputedStyle возвращает значение с единицой измерения (согласно css свойству)</p>
+  <button onclick="alert(getComputedStyle(example2).width)">show getComputedStyle.width</button>
+  <button onclick="alert(example2.clientWidth)">show clientWidth</button>
+  <!-- 3 -->
+  <p class="example" id="example2"> 3. В дополнение ко 2 пункту: getComputedStyle возвращает значение без учета дополнительного размера полосы проркутки, в отличие от clientWidth (400рх элемента + 20рх прокрутки)</p>
+  <button onclick="alert(getComputedStyle(example2).width)">show getComputedStyle.width</button>
+  <button onclick="alert(example2.clientWidth)">show clientWidth</button>
+  <script>
+    
+  </script>
+
+</body>
+
+</html>
