@@ -1,0 +1,36 @@
+<!--Добавьте JavaScript к кнопке button, чтобы при нажатии элемент <div id="text"> исчезал. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <input type="button" id="hider" value="Нажмите, чтобы спрятать текст" />
+
+  <div id="text">Текст</div>
+
+  <script>
+    const hider = document.querySelector('#hider')
+    hider.addEventListener('click', () => {
+      const text = document.querySelector('#text')
+
+      if (text) {
+        text.hidden = true;
+      }
+    })
+  </script>
+
+</body>
+
+</html>

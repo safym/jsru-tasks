@@ -1,0 +1,36 @@
+<!-- В переменной button находится кнопка. Изначально на ней нет обработчиков.
+Который из обработчиков запустится? Что будет выведено при клике после выполнения кода?
+
+button.addEventListener("click", () => alert("1"));
+button.removeEventListener("click", () => alert("1"));
+button.onclick = () => alert(2); -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <button id="button"></button>
+  <script>
+    // выведется 1 и 2, потому что для удаления обработчика событий нужно переделать ту же функцию, 
+    // а в случае ниже это идентичные, но по сути разные,  стрелочные функции 
+    // (как и для всех объектов - у функций тоже сранивается ссылка )
+    button.addEventListener("click", () => alert("1"));
+    button.removeEventListener("click", () => alert("1"));
+    button.onclick = () => alert(2);
+  </script>
+
+</body>
+
+</html>

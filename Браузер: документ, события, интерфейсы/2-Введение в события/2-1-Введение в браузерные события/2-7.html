@@ -1,0 +1,139 @@
+<!-- Создайте «Карусель» –- ленту изображений, которую можно листать влево-вправо нажатием на стрелочки. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      padding: 10px;
+    }
+
+    .carousel {
+      position: relative;
+      width: 398px;
+      padding: 10px 40px;
+      border-radius: 15px;
+      background: #fffeeb;
+    }
+
+    .carousel img {
+      width: 130px;
+      height: 130px;
+      /* делаем этот элемент блочным, чтобы убрать лишнее пространство вокруг картинок */
+      display: block;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 60px;
+      padding: 0;
+      background: #ffc400;
+      color: white;
+      border-radius: 15px;
+      border: none;
+      font-size: 24px;
+      line-height: 24px;
+      display: block;
+      transition: 0.2s;
+    }
+
+    .arrow:focus {
+      outline: none;
+    }
+
+    .arrow:hover {
+      background: #ffae00;
+      ;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 7px;
+    }
+
+    .next {
+      right: 7px;
+    }
+
+    .gallery {
+      width: 390px;
+      overflow: hidden;
+    }
+
+    .gallery ul {
+      height: 130px;
+      width: 9999px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      transition: margin-left 250ms;
+      font-size: 0;
+    }
+
+    .gallery li {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="carousel" class="carousel">
+    <button class="arrow prev">⇦</button>
+    <div class="gallery">
+      <ul id="images">
+        <li><img src="https://ru.js.cx/carousel/1.png"></li>
+        <li><img src="https://ru.js.cx/carousel/2.png"></li>
+        <li><img src="https://ru.js.cx/carousel/3.png"></li>
+        <li><img src="https://ru.js.cx/carousel/4.png"></li>
+        <li><img src="https://ru.js.cx/carousel/5.png"></li>
+        <li><img src="https://ru.js.cx/carousel/6.png"></li>
+        <li><img src="https://ru.js.cx/carousel/7.png"></li>
+        <li><img src="https://ru.js.cx/carousel/8.png"></li>
+        <li><img src="https://ru.js.cx/carousel/9.png"></li>
+        <li><img src="https://ru.js.cx/carousel/10.png"></li>
+      </ul>
+    </div>
+    <button class="arrow next">⇨</button>
+  </div>
+
+  <script>
+    const carousel = document.querySelector('#carousel')
+
+    setEventListeners(carousel)
+
+    function setEventListeners(carouselElem) {
+      const prevButton = carouselElem.querySelector('.prev')
+      const nextButton = carouselElem.querySelector('.next')
+
+      prevButton.addEventListener('click', (event) => flip(event, carouselElem))
+      nextButton.addEventListener('click', (event) => flip(event, carouselElem))
+    }
+
+    function flip(event, carouselElem) {
+      let count = 3;
+
+      if (event.target.classList.contains('prev')) {
+        let temp = [];
+
+        for (let elem = images.children.length - 1, i = 0; i < count; i++) {
+          temp.push(images.children[elem--]);
+        }
+        temp.forEach(el => images.prepend(el));
+      } else if (event.target.classList.contains('next')) {
+        let temp = [];
+
+        for (let i = 0; i < count; i++) {
+          temp.push(images.children[i]);
+        }
+        temp.forEach(el => images.append(el));
+      }
+    }
+  </script>
+
+
+  <script>
+
+  </script>
+</body>

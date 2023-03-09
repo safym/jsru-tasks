@@ -1,0 +1,97 @@
+<!-- Cоздать меню, которое по нажатию открывается либо закрывается -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      margin: 10px auto;
+      width: 470px;
+    }
+
+    h3 {
+      margin: 0;
+      padding-bottom: .3em;
+      font-size: 1.1em;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 0 .5em;
+    }
+
+    .pane {
+      position: relative;
+      background: #edf5e1;
+      padding: 10px 20px 10px;
+      border-top: solid 2px #c4df9b;
+    }
+
+    .remove-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 110%;
+      color: darkred;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div>
+    <div class="pane">
+      <h3>Лошадь</h3>
+      <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой
+        лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+    </div>
+    <div class="pane">
+      <h3>Осёл</h3>
+      <p>Домашний осёл (лат. Equus asinus asinus), или ишак, — одомашненный подвид дикого осла (Equus asinus), сыгравший
+        важную историческую роль в развитии хозяйства и культуры человека и по-прежнему широко в хозяйстве многих
+        развивающихся стран.</p>
+    </div>
+    <div class="pane">
+      <h3>Кошка</h3>
+      <p>Кошка, или домашняя кошка (лат. Felis silvestris catus), — домашнее животное, одно из наиболее
+        популярных(наряду с собакой) «животных-компаньонов». Являясь одиночным охотником на грызунов и других мелких
+        животных, кошка — социальное животное, использующее для общения широкий диапазон звуковых сигналов.</p>
+    </div>
+  </div>
+
+  <script>
+    const paneList = document.querySelectorAll('.pane')
+
+    setCloseButton(paneList)
+
+    function setCloseButton(paneList) {
+      for (let pane of paneList) {
+        const buttonClose = getCloseElement();
+        buttonClose.addEventListener('click', () => removePane(pane))
+
+        pane.append(buttonClose)
+      }
+    }
+
+    function getCloseElement() {
+      const buttonCloseWrapper = document.createElement('div');
+      buttonCloseWrapper.innerHTML = '<button class="remove-button">[x]</button>';
+
+      const buttonClose = buttonCloseWrapper.firstElementChild
+
+      return buttonClose;
+    }
+
+    function removePane(pane) {
+      pane.remove()
+    }
+  </script>
+</body>

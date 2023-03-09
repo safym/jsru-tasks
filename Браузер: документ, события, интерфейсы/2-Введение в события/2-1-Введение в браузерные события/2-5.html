@@ -1,0 +1,58 @@
+<!-- Cоздать меню, которое по нажатию открывается либо закрывается -->
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #listTitle {
+      cursor: pointer;
+      border: 1px solid gainsboro;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px;
+    }
+    .listIcon {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a id="listTitle">
+    <span class="listIcon" id="iconClose">▶</span>
+    <span class="listIcon" id="iconOpen" hidden>▼</span>
+    Сладости (нажми меня)! 
+  </a>
+  <ul id="list">
+    <li>Пирожное</li>
+    <li>Пончик</li>
+    <li>Мёд</li>
+  </ul>
+ 
+  <script>
+    const listTitle = document.querySelector('#listTitle');
+
+    listTitle .addEventListener('click', () => {
+      const list = document.querySelector('#list')
+      const iconOpen = document.querySelector('#iconOpen')
+      const iconClose = document.querySelector('#iconClose')
+
+      iconOpen.hidden = list.hidden;
+      iconClose.hidden = !list.hidden;
+      
+      list.hidden = !list.hidden;
+
+
+    })
+  </script>
+
+</body>
+
+</html>
