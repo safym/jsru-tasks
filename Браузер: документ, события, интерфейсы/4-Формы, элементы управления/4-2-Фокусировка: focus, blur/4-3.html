@@ -1,0 +1,231 @@
+<!-- Сделайте ячейки таблицы редактируемыми по клику.
+
+    По клику – ячейка должна стать «редактируемой» (textarea появляется внутри), мы можем изменять HTML.
+    Изменение размера ячейки должно быть отключено.
+    Кнопки OK и ОТМЕНА появляются ниже ячейки и, соответственно, завершают/отменяют редактирование.
+    Только одну ячейку можно редактировать за один раз. Пока <td> в «режиме редактирования», 
+    клики по другим ячейкам игнорируются.
+    Таблица может иметь множество ячеек. Используйте делегирование событий. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* общие стили для таблицы, изменять их не нужно */
+    * {
+      box-sizing: border-box;
+    }
+
+    th {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    td {
+      position: relative;
+      width: 150px;
+      white-space: nowrap;
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px;
+    }
+
+    .nw {
+      background-color: #999;
+    }
+
+    .n {
+      background-color: #03f;
+      color: #fff;
+    }
+
+    .ne {
+      background-color: #ff6;
+    }
+
+    .w {
+      background-color: #ff0;
+    }
+
+    .c {
+      background-color: #60c;
+      color: #fff;
+    }
+
+    .e {
+      background-color: #09f;
+      color: #fff;
+    }
+
+    .sw {
+      background-color: #963;
+      color: #fff;
+    }
+
+    .s {
+      background-color: #f60;
+      color: #fff;
+    }
+
+    .se {
+      background-color: #0c3;
+      color: #fff;
+    }
+
+    /* добавленные стили */
+    .textarea {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding-bottom: 20px;
+      border-radius: 0;
+      border: 1px solid grey;
+    }
+
+    .buttonWrapper {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
+
+    .button {
+      width: 50%;
+      border-radius: 0;
+      border: none;
+      border: 1px solid grey;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>Кликните на ячейку таблицы, чтобы отредактировать её. Нажмите ОК или ОТМЕНА, когда закончите.</p>
+
+  <table id="bagua-table">
+    <tr>
+      <th colspan="3">Квадрат <em>Bagua</em>: Направление, Элемент, Цвет, Значение</th>
+    </tr>
+    <tr>
+      <td class="nw"><strong>Северо-Запад</strong>
+        <br>Металл
+        <br>Серебро
+        <br>Старейшины
+      </td>
+      <td class="n"><strong>Север</strong>
+        <br>Вода
+        <br>Синий
+        <br>Перемены
+      </td>
+      <td class="ne"><strong>Северо-Восток</strong>
+        <br>Земля
+        <br>Жёлтый
+        <br>Направление
+      </td>
+    </tr>
+    <tr>
+      <td class="w"><strong>Запад</strong>
+        <br>Металл
+        <br>Золото
+        <br>Молодость
+      </td>
+      <td class="c"><strong>Центр</strong>
+        <br>Всё
+        <br>Пурпурный
+        <br>Гармония
+      </td>
+      <td class="e"><strong>Восток</strong>
+        <br>Дерево
+        <br>Синий
+        <br>Будущее
+      </td>
+    </tr>
+    <tr>
+      <td class="sw"><strong>Юго-Запад</strong>
+        <br>Земля
+        <br>Коричневый
+        <br>Спокойствие
+      </td>
+      <td class="s"><strong>Юг</strong>
+        <br>Огонь
+        <br>Оранжевый
+        <br>Слава
+      </td>
+      <td class="se"><strong>Юго-Восток</strong>
+        <br>Дерево
+        <br>Зеленый
+        <br>Роман
+      </td>
+    </tr>
+
+  </table>
+
+  <script>
+    const table = document.querySelector('#bagua-table');
+    let isEdit = false;
+
+    table.addEventListener('click', (event) => onClick(event));
+
+    function onClick(event) {
+      if (isEdit) return; 
+
+      const target = event.target;
+      const td = target.closest('td')
+
+      let textarea, buttonWrapper;
+
+      if (target.closest('td') && !target.classList.contains('button')) {
+        isEdit = true;
+        
+        textarea = createTextareaElement('textarea')
+        textarea.value = td.innerHTML;
+
+        const buttonOk = createButtonElement('ok')
+        const buttonCancel = createButtonElement('cancel')
+
+        buttonWrapper = document.createElement('div')
+        buttonWrapper.className = 'buttonWrapper';
+        buttonWrapper.append(buttonOk, buttonCancel)
+
+        target.append(textarea, buttonWrapper)
+        textarea.focus()
+      }
+
+      function createButtonElement(value) {
+        const button = document.createElement('button');
+        button.className = 'button'
+        button.id = value;
+        button.innerText = value.toUpperCase();
+        button.onclick = (event) => onClickBtn(event, value)
+        return button
+      }
+
+      function createTextareaElement(value) {
+        const textarea = document.createElement('textarea')
+        textarea.className = 'textarea'
+        textarea.innerHTML = value;
+
+        return textarea
+      }
+
+      function onClickBtn(event, name) {
+        isEdit = false;
+
+        if (name === 'ok') {
+          td.innerHTML = textarea.value;
+          textarea.remove();
+          buttonWrapper.remove();
+        } else if (name === 'cancel') {
+          textarea.remove();
+          buttonWrapper.remove();
+        }
+      }
+    }
+  </script>
+
+</body>

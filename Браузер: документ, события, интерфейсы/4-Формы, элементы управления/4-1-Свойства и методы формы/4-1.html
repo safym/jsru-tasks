@@ -1,0 +1,49 @@
+<!-- Имеется <select>:
+
+<select id="genres">
+  <option value="rock">Рок</option>
+  <option value="blues" selected>Блюз</option>
+</select>
+
+Используя JavaScript:
+
+    1.Выведите значение и текст выбранного пункта.
+    2.Добавьте пункт: <option value="classic">Классика</option>.
+    3.Сделайте его выбранным. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <select id="genres">
+    <option value="rock">Рок</option>
+    <option value="blues" selected>Блюз</option>
+  </select>
+
+  <script>
+    const genres = document.querySelector('#genres')
+    // 1.
+    alert(genres.value)
+
+    // 2.
+    const newOptions = new Option('Классика', 'classic', false, false)
+    genres.append(newOptions)
+
+    // 3.
+    const options = genres.options
+    for (const option of options) {
+      console.log(option.value)
+      if(option.value === 'classic') {
+        option.selected = true;
+      }
+    }
+  </script>
+
+</body>

@@ -1,0 +1,63 @@
+<!-- Создайте функцию showPrompt(html, callback), которая выводит форму с сообщением (html), полем ввода и кнопками OK/ОТМЕНА.
+
+    Пользователь должен ввести что-то в текстовое поле и нажать Enter или кнопку «OK», после чего должна вызываться функция callback(value) со значением поля.
+    Если пользователь нажимает Esc или кнопку «ОТМЕНА», тогда вызывается callback(null).
+
+В обоих случаях нужно завершить процесс ввода и закрыть диалоговое окно с формой.
+
+Требования:
+
+    Форма должна быть в центре окна.
+    Форма является модальным окном, это значит, что никакое взаимодействие с остальной частью страницы невозможно, пока пользователь не закроет его.
+    При показе формы, фокус должен находиться сразу внутри <input>.
+    Клавиши Tab/Shift+Tab должны переключать фокус между полями формы, не позволяя ему переходить к другим элементам страницы. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <dialog id="dialog">
+    <form method="dialog">
+      <div id="prompt-message">Введите что-нибудь...
+        <br>Пожалуйста..</div>
+      <input name="text" type="text">
+      <div>
+        <button value="cancel">Cancel</button>
+        <button id="confirmBtn" value="default">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+
+  <button id="showDialog">Нажмите чтобы показать модальное окно</button>
+
+  <p id="result"></p>
+
+  <script>
+    const showButton = document.getElementById('showDialog');
+    const dialog = document.getElementById('dialog');
+    const resultElement = document.querySelector('#result');
+    const inputEl = dialog.querySelector('input');
+    const confirmBtn = dialog.querySelector('#confirmBtn');
+
+    showButton.addEventListener('click', (e) => {
+      dialog.showModal();
+    });
+
+    inputEl.addEventListener('change', (e) => {
+      confirmBtn.value = inputEl.value;
+    });
+
+    dialog.addEventListener('close', (e) => {
+      resultElement.innerHTML = `Введено: ${dialog.returnValue}`;
+    });
+  </script>
+
+</body>

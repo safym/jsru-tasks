@@ -1,0 +1,165 @@
+<!-- Создайте интерфейс, позволяющий ввести сумму банковского вклада и процент, 
+  а затем рассчитать, какая это будет сумма через заданный промежуток времени.-->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    td select,
+    td input {
+      width: 150px;
+    }
+
+    #diagram td {
+      vertical-align: bottom;
+      text-align: center;
+      padding: 10px;
+    }
+
+    #diagram div {
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  Депозитный калькулятор.
+
+  <form name="calculator">
+    <table>
+      <tr>
+        <td>Первоначальный депозит</td>
+        <td>
+          <input name="money" type="number" value="10000" required data-element="money">
+        </td>
+      </tr>
+      <tr>
+        <td>Срок вклада?</td>
+        <td>
+          <select name="months" data-element="months">
+            <option value="3">3 (минимум)</option>
+            <option value="6">6 (полгода)</option>
+            <option value="12" selected>12 (год)</option>
+            <option value="18">18 (1.5 года)</option>
+            <option value="24">24 (2 года)</option>
+            <option value="30">30 (2.5 года)</option>
+            <option value="36">36 (3 года)</option>
+            <option value="60">60 (5 лет)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Годовая процентная ставка?</td>
+        <td>
+          <input name="interest" type="number" value="5" required data-element="interest">
+        </td>
+      </tr>
+    </table>
+
+
+  </form>
+
+
+  <table id="diagram">
+    <tr>
+      <th>Было:</th>
+      <th>Станет:</th>
+    </tr>
+    <tr>
+      <th id="money-before" data-result="money-before"></th>
+      <th id="money-after" data-result="money-after"></th>
+    </tr>
+    <td>
+      <div style="background: red;width:40px;height:100px"></div>
+    </td>
+    <td>
+      <div style="background: green;width:40px;height:0" id="height-after" data-result="height-after"></div>
+    </td>
+  </table>
+
+  <script>
+    const form = document.forms.calculator;
+    const diagram = document.querySelector('#diagram')
+
+    const formElements = getFormElements(form)
+    const formData = getFormData(form)
+
+    const resultElements = getResultElemets(diagram) 
+
+    updateFormElements()
+    form.addEventListener('input', onInput)
+
+    function onInput(event) {
+      const propName = event.target.dataset.element
+
+      if (formData.hasOwnProperty(propName)) {
+        switch (event.target.tagName) {
+          case 'INPUT':
+            formData[propName] = +event.target.value
+            break
+          case 'SELECT':
+            formData[propName] = +event.target.selectedOptions[0].value * 0.01
+            break
+        }
+      }
+      updateFormElements()
+    }
+
+    function updateFormElements() {
+      const years = formData['months'] / 12;
+      const moneyAfter = Math.round(formData['money'] * ((1 + formData['interest']) ** years));
+      const chartHeight = moneyAfter / formData['money'] * 100 + 'px';
+
+      resultElements['money-before'].innerText = formData['money'];
+      resultElements['money-after'].innerText = moneyAfter;
+      resultElements['height-after'].style.height = chartHeight
+    }
+
+    function getFormData(form) {
+      const nodeList = form.querySelectorAll('[data-element]')
+      const formData = {}
+
+      for (const elem of nodeList) {
+        const propName = elem.dataset.element
+        switch (elem.tagName) {
+          case 'INPUT':
+            formData[propName] = +elem.value
+            break
+          case 'SELECT':
+            formData[propName] = +elem.selectedOptions[0].value * 0.01
+            break
+        }
+      }
+
+      return formData
+    }
+
+    function getFormElements(form) {
+      const nodeList = form.querySelectorAll('[data-element]')
+      const formElements = {}
+
+      for (const elem of nodeList) {
+        const propName = elem.dataset.element
+        formElements[propName] = elem
+      }
+
+      return formElements
+    }
+
+    function getResultElemets(elem) {
+      const nodeList = elem.querySelectorAll('[data-result]')
+      const resultElements = {}
+
+      for (const elem of nodeList) {
+        const propName = elem.dataset.result
+        resultElements[propName] = elem
+      }
+
+      return resultElements
+    }
+  </script>
+
+</body>

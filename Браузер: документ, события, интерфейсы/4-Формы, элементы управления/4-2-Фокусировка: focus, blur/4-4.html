@@ -1,0 +1,85 @@
+<!-- Установите фокус на мышь. Затем используйте клавиши со стрелками, чтобы её двигать:
+
+P.S. Не добавляйте обработчики никуда, кроме элемента #mouse.
+P.P.S. Не изменяйте HTML/CSS, подход должен быть общим и работать с любым элементом. -->
+<!-- --------------------------------------------------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #mouse {
+      display: inline-block;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    #mouse:focus {
+      outline: 1px dashed black;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <p>Кликните по "изображению" мыши и перемещайте её с помощью клавиш со стрелками.</p>
+
+  <pre id="mouse" tabindex="0">
+ _   _
+(q\_/p)
+ /. .\
+=\_t_/=   __
+ /   \   (
+((   ))   )
+/\) (/\  /
+\  Y  /-'
+ nn^nn
+</pre>
+
+
+  <script>
+    const mouse = document.querySelector('#mouse')
+
+    mouse.addEventListener('click', mouseOnClick)
+
+    function mouseOnClick(event) {
+      const mouseTarget = event.target;
+
+      mouseTarget.style.position = 'absolute'
+      mouseTarget.style.left = mouseTarget.getBoundingClientRect().left + 'px';
+      mouseTarget.style.top = mouseTarget.getBoundingClientRect().top + 'px';
+
+      mouseTarget.focus()
+
+      mouseTarget.addEventListener('keydown', onKeyDown)
+
+      function onKeyDown(event) {
+        const key = event.key;
+
+        let left = mouseTarget.getBoundingClientRect().left;
+        let top = mouseTarget.getBoundingClientRect().top;
+
+        const step = 100;
+
+        switch (key) {
+          case 'ArrowRight':
+            mouseTarget.style.left = left + step + 'px';
+            break
+          case 'ArrowLeft':
+            mouseTarget.style.left = left - step + 'px';
+            break
+          case 'ArrowUp':
+            mouseTarget.style.top = top - step + 'px';
+            break
+          case 'ArrowDown':
+            mouseTarget.style.top = top + step + 'px';
+            break
+        }
+      }
+    }
+  </script>
+
+
+</body>
